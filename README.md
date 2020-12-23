@@ -6,14 +6,23 @@ Use the free ST Visual developer along with the ST Visual Programmer for an STM8
 The STM8 boards are easily and cheaply available as are the Stlink usb programmers.
 
 Pin Use .. D3 pwm (1Khz) Chan2 Out. D2 pwm Chan3 .. D4 pwm Chan1 Out
+
            C7 Chan2  C5 Chan3  C3 Chan 1 push pull switched Out.
+           
            C6 DMX in via 4k7 and is a pullup input.
+           
            C4 is a 1-2mS servo out of Chan2
+           
            B4 is an open drain output of Chan1
+           
            D5 is a 115200 Uart out with an FF marker followed by chan1 2 3 data divide by 2 ie 0-128
+           
            A1 is an output data drive for a WS2812 RGB led
+           
            A2 ia an output of the data sampling timing pulses
-           A3 is a pullup input for the DMX address setting switch. This requires a 0.22uF to ground.
+           
+           A3 is a pullup input for the DMX address setting switch. This requires a 0.22uF to ground
+           .
 To program .. Open ST Vis Programmer. Set for STM8S103 device. Select the programmer as STLINK usb.
 Load the S19 files into the program data and options tabs. Program all and thats it.
 Alternatively.. create a new workspace in Visual developer for a STM8S103 device and select a name for it.
@@ -39,11 +48,17 @@ Short delay and on to a Red Flash .. time to enter the 10's count, again leave f
 Short delay and on the Blue flash .. enter the desired units count.
 Wait ... the entered address will be displayed and the unit will now start up. This address will have been stored in eeprom.
 
+When running ... dmx channel 1 will increase the led Green brigtness, channel 2 the led Red brightness, and channel 3 the blue brightness.
+Useful for checking all is well.
+
 For interest ... Scoping the DMX and syncing using a Pulse mode to sync on a pulse of > 75uS the sampling pulse output pin (A2) will
 indicate the precise time the data gets sampled (per bit) and stored.(a double pulse indicates bit0 of the byte)
 
 This particular dmx program has been functioning for many years in commercial product that I have designed (some many thousands units) and has
 proved to be extremely robust. (I am hoping I have ported everything correctly and nothing is going to bite back!).
+
+I found when using a stm8 disco board as a programmer, there was enough power to supply the 103 board from the swim output pins. Just use Gnd, +3.3V and swim pins.
+No need for the rst line.
 
 So, here is a cheap and low count DMX receiver that can be interfaced or used standalone. One aspect is that because it is low cost and 
 standalone, fault finding and debugging is relatively simple. Sure, all the decoding could be done in a more complex chip, along with
